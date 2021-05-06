@@ -1,4 +1,13 @@
 const discord = require('discord.js');
+const express = require('express');
+
+const app = express();
+const port = 3000;
+app.get('/', (req, res) => res.send('Hello World!'));
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
+
+// ------------------------------------------------- //
 const client = new discord.Client();
 const REGEX_DICE= /^[0-9]+d[0-9]$/;
 

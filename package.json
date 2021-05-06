@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NyxAether/discord_bot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord.js": "^12.5.3",
+    "express": "^4.17.1"
   }
 }
