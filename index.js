@@ -9,7 +9,7 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 
 // ------------------------------------------------- //
 const client = new discord.Client();
-const REGEX_DICE= /^[0-9]+d[0-9]$/;
+const REGEX_DICE= /^[1-9][0-9]*d[1-9][0-9]*$/;
 
 client.login(process.env['TOKEN']);
 
