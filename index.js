@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const client = new discord.Client();
 const REGEX_DICE= /^[0-9]+d[0-9]$/;
 
-client.login('ODM5ODI5NzQ5MDcyNzg5NTE1.YJPWZw.hb6RuqZQE9qWt13g7662INYLzmI');
+client.login(process.env['TOKEN']);
 
 function rollDice(nb,diceValue){
     var total = 0;
@@ -11,7 +11,6 @@ function rollDice(nb,diceValue){
     }
     for (let index = 0; index < nb; index++) {
         total = total + Math.ceil(Math.random()*diceValue);
-        console.log(total);
     }
     return total;
 }
@@ -26,7 +25,6 @@ client.on('message', msg => {
         var roll=msg.content.substr(1);
         if (REGEX_DICE.test(roll)) {
             var diceInfo=roll.split('d')
-            console.log(diceInfo)
             msg.reply(rollDice(diceInfo[0],diceInfo[1]));
         }
     }
