@@ -7,7 +7,6 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const REGEX_DICE = /^[1-9][0-9]*d[1-9][0-9]*$/;
 
 dotenv.config();
-console.log(process.env.TOKEN);
 client.login(process.env.TOKEN);
 
 
@@ -18,7 +17,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.content[0] === '!') {
-        var roll = msg.content.substr(1);
+        var roll = msg.content.substring(1);
         if (REGEX_DICE.test(roll)) {
             var diceInfo = roll.split('d')
             msg.reply(rollDice(diceInfo[0], diceInfo[1]));
