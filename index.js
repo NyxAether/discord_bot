@@ -1,17 +1,14 @@
-const discord = require('discord.js');
-const express = require('express');
-
-const app = express();
-const port = 3000;
-app.get('/', (req, res) => res.send('Hello World!'));
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
-
+// Require the necessary discord.js classes
+const { Client, Intents } = require('discord.js');
+const dotenv = require('dotenv');
 
 // ------------------------------------------------- //
-const client = new discord.Client();
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const REGEX_DICE = /^[1-9][0-9]*d[1-9][0-9]*$/;
 
-client.login(process.env['TOKEN']);
+dotenv.config();
+console.log(process.env.TOKEN);
+client.login(process.env.TOKEN);
 
 
 
