@@ -1,9 +1,9 @@
 // Require the necessary discord.js classes
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, MessageEmbed } = require('discord.js');
 const dotenv = require('dotenv');
 
 // ------------------------------------------------- //
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, ] });
 const REGEX_DICE = /^[1-9][0-9]*d[1-9][0-9]*$/;
 
 dotenv.config();
@@ -15,7 +15,7 @@ client.on('ready', () => {
     console.log('Connected to the bot');
 });
 
-client.on('message', msg => {
+client.on('messageCreate', msg => {
     if (msg.content[0] === '!') {
         var roll = msg.content.substring(1);
         if (REGEX_DICE.test(roll)) {
@@ -30,12 +30,12 @@ client.on('message', msg => {
 function rollDice(nb, diceValue) {
     var total = 0;
     if (diceValue === 0) {
-        return 0;
+        return "0";
     }
     for (let index = 0; index < nb; index++) {
         total = total + Math.ceil(Math.random() * diceValue);
     }
-    return total;
+    return `${total}`;
 }
 
 function pollMessage(msg) {
@@ -50,11 +50,11 @@ function pollMessage(msg) {
         else if (pollStruct.length === 1) {
             var reponses = '\n' +
                 '🟢 Oui\n🔴 Non\n';
-            const poll = new discord.MessageEmbed()
+            const poll = new MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle(pollText)
                     .setDescription(reponses);
-            msg.channel.send(poll).then(function (msg) {
+            msg.channel.send({ embeds: [poll] }).then(function (msg) {
                 msg.react("🟢")
                 msg.react("🔴")
               }).catch(function() {
@@ -68,11 +68,11 @@ function pollMessage(msg) {
                     responses=responses+'\n'+list_emoji[i]+ ' '+choice
                 }
                 reponses= responses+'\n';
-                const poll = new discord.MessageEmbed()
+                const poll = new MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle(pollStruct[0])
                     .setDescription(reponses);
-                    msg.channel.send(poll).then(function (msg) {
+                    msg.channel.send({ embeds: [poll] }).then(function (msg) {
                         for (let i = 0; i < pollStruct.length-1; i++) {
                             msg.react(list_emoji[i])
                         }
